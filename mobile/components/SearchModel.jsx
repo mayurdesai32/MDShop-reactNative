@@ -79,7 +79,6 @@ const SearchModel = ({
 };
 
 const SearchItem = ({ imgSrc, name, price, handler }) => {
-  console.log(imgSrc);
   return (
     <TouchableOpacity onPress={handler}>
       <View

@@ -7,6 +7,8 @@ import { useState } from 'react';
 import SearchModel from '../components/SearchModel';
 import ProductCard from '../components/ProductCard';
 import { useNavigation } from '@react-navigation/native';
+import Footer from '../components/Footer';
+import Heading from '../components/Heading';
 
 const categories = [
   { category: 'nice1', _id: '1fdfdss' },
@@ -84,11 +86,8 @@ const Home = () => {
             alignItems: 'center',
           }}
         >
-          <View>
-            <Text style={{ fontSize: 25 }}>Our</Text>
-            <Text style={{ fontSize: 25, fontWeight: '900' }}>Products</Text>
-            {/* searchbar */}
-          </View>
+          <Heading text1='Our' text2='Products' />
+
           <TouchableOpacity onPress={() => setActiveSearch((prev) => !prev)}>
             <Avatar.Icon
               icon={'magnify'}
@@ -146,6 +145,7 @@ const Home = () => {
           </ScrollView>
         </View>
       </View>
+      <Footer activeRoute={'home'} />
     </>
   );
 };
