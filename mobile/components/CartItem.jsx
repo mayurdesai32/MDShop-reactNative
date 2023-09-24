@@ -11,6 +11,7 @@ const CartItem = ({
   amount,
   imgSrc,
   qty,
+  navigate,
   // incrementHandler,
   // decrementHandler,
   index,
@@ -42,6 +43,7 @@ const CartItem = ({
           style={{
             fontSize: 17,
           }}
+          onPress={() => navigate.navigate('productdetails', { id })}
         >
           {name}
         </Text>

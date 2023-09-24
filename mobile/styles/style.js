@@ -28,27 +28,42 @@ export const defaultStyle = StyleSheet.create({
 export const inputStyle = StyleSheet.create({
   height: 50,
   marginVertical: 10,
-  marginHorizonal: 20,
+  marginHorizontal: 20,
   backgroundColor: colors.color2,
 });
 
-export const formHeading = {
-  fontSize: 25,
-  fontWeight: '500',
-  textAlign: 'center',
-  backgroundColor: colors.color3,
-  color: colors.color2,
-  padding: 5,
-  borderRadius: 5,
-};
+// export const formHeading = {
+//   fontSize: 25,
+//   fontWeight: '500',
+//   textAlign: 'center',
+//   backgroundColor: colors.color3,
+//   color: colors.color2,
+//   padding: 5,
+//   borderRadius: 5,
+// };
 
 export const inputOptions = {
+  // style: {
+  //   height: 50,
+  //   marginVertical: 10,
+  //   marginHorizonal: 20,
+  //   backgroundColor: colors.color2,
+  // paddingLeft: 10
+  // },
   style: inputStyle,
   mode: 'outlined',
   activeOutlineColor: colors.color1,
 };
-
 export const formStyles = StyleSheet.create({
+  heading: {
+    fontSize: 25,
+    fontWeight: '500',
+    textAlign: 'center',
+    backgroundColor: colors.color3,
+    color: colors.color2,
+    padding: 5,
+    borderRadius: 5,
+  },
   container: {
     flex: 1,
     padding: 20,
@@ -58,7 +73,7 @@ export const formStyles = StyleSheet.create({
     elevation: 10,
   },
 
-  forget: {
+  forgotText: {
     color: colors.color2,
     marginHorizontal: 20,
     marginVertical: 10,
@@ -88,3 +103,6 @@ export const formStyles = StyleSheet.create({
     marginHorizontal: 20,
   },
 });
+
+export const defaultImg =
+  'https://p.kindpng.com/picc/s/451-4517876_default-profile-hd-png-download.png';

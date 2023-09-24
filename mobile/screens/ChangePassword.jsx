@@ -9,35 +9,37 @@ import {
 } from '../styles/style';
 import { TextInput, Button } from 'react-native-paper';
 import Footer from '../components/Footer';
+import Header from '../components/Header';
 
-const Login = ({ navigation }) => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+const ChangePassword = ({ navigation }) => {
+  const [oldPassword, setOldPassword] = useState('');
+  const [newPassword, setNewPassword] = useState('');
 
   const loading = false;
   const submitHandler = () => {
-    alert('longin');
+    alert('password change');
   };
   return (
     <>
       <View style={{ ...defaultStyle, backgroundColor: colors.color2 }}>
-        <View style={{ marginTop: 10, marginBottom: 20 }}>
-          <Text style={formStyles.heading}>Login</Text>
+        <Header back={true} />
+        <View style={{ marginTop: 80, marginBottom: 20 }}>
+          <Text style={formStyles.heading}>Change Password</Text>
         </View>
         <View style={formStyles.container}>
           <TextInput
             {...inputOptions}
-            placeholder='Email'
-            keyboardType='email-address'
-            value={email}
-            onChangeText={setEmail}
+            placeholder='Old Password'
+            secureTextEntry={true}
+            value={oldPassword}
+            onChangeText={setOldPassword}
           />
           <TextInput
             {...inputOptions}
-            placeholder='Password'
+            placeholder='New Password'
             secureTextEntry={true}
-            value={password}
-            onChangeText={setPassword}
+            value={newPassword}
+            onChangeText={setNewPassword}
           />
           <TouchableOpacity
             activeOpacity={0.8}
@@ -49,24 +51,16 @@ const Login = ({ navigation }) => {
           <Button
             loading={loading} // for throding
             textColor={colors.color2}
-            disabled={email === '' || password === ''}
+            disabled={oldPassword === '' || newPassword === ''}
             style={formStyles.btn}
             onPress={submitHandler}
           >
-            Log In
+            Change Password
           </Button>
-          <Text style={formStyles.or}>OR</Text>
-          <TouchableOpacity
-            activeOpacity={0.8}
-            onPress={() => navigation.navigate('signup')}
-          >
-            <Text style={formStyles.link}>Sign UP</Text>
-          </TouchableOpacity>
         </View>
       </View>
-      <Footer activeRoute='profile' />
     </>
   );
 };
 
-export default Login;
+export default ChangePassword;

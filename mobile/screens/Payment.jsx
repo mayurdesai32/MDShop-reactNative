@@ -8,14 +8,14 @@ import { NavigationContainer } from '@react-navigation/native';
 const Payment = ({ navigation, route }) => {
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('COD');
 
-  const navigate = NavigationContainer();
+  // const navigate = navigation();
   const handlePaymentMethodChange = (newPaymentMethod) => {
     setSelectedPaymentMethod(newPaymentMethod);
   };
 
   const isAuthenticated = true;
   const redirectToLogin = () => {
-    navigate.navigate('login');
+    navigation.navigate('login');
   };
   const CODHandler = () => {};
   const onlineHandler = () => {};

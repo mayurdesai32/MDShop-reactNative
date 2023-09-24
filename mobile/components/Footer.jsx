@@ -8,7 +8,7 @@ const Footer = ({ activeRoute = 'home' }) => {
   const navigate = useNavigation();
   const loading = false;
   // loading represent database connect or not
-  const isAuthenticated = false;
+  const isAuthenticated = true;
   const navigationHandler = (key) => {
     switch (key) {
       case 0:

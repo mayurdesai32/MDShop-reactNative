@@ -18,8 +18,45 @@ const categories = [
   { category: 'nice5', _id: '5fdfhgfdss' },
 ];
 
-const products = [
+export const products = [
   {
+    category: 'cothes',
+    _id: '1ftrerggdfgdf',
+    stock: 44,
+    images: [
+      {
+        url: 'https://p.kindpng.com/picc/s/451-4517876_default-profile-hd-png-download.png',
+      },
+    ],
+    name: 'fbvcbcb',
+    price: 545,
+  },
+  {
+    category: 'cothes',
+    _id: '121fggdfgdf',
+    stock: 44,
+    images: [
+      {
+        url: 'https://p.kindpng.com/picc/s/451-4517876_default-profile-hd-png-download.png',
+      },
+    ],
+    name: 'fbvcbcb',
+    price: 545,
+  },
+  {
+    category: 'cothes',
+    _id: '111fgghghfgdfgdf',
+    stock: 44,
+    images: [
+      {
+        url: 'https://p.kindpng.com/picc/s/451-4517876_default-profile-hd-png-download.png',
+      },
+    ],
+    name: 'fbvcbcb',
+    price: 545,
+  },
+  {
+    category: 'cothes',
     _id: '1fggdfgdf',
     stock: 44,
     images: [
@@ -31,6 +68,7 @@ const products = [
     price: 545,
   },
   {
+    category: 'cothes',
     _id: '2fggdfgdf',
     stock: 44,
     images: [
@@ -42,6 +80,7 @@ const products = [
     price: 545,
   },
   {
+    category: 'cothes',
     _id: '3fggdfggfdgfgdf',
     stock: 44,
     images: [
