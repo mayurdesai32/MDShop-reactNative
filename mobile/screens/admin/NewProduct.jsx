@@ -1,5 +1,5 @@
 import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   formStyles,
   defaultStyle,
@@ -32,7 +32,12 @@ const NewProduct = ({ navigation, route }) => {
   const submitHandler = () => {
     console.log(name, price, stock, description, categoryID);
   };
-
+  console.log(route.params);
+  useEffect(() => {
+    if (route.params?.image) {
+      return setImage(route.params.image);
+    }
+  }, [route.params]);
   return (
     <>
       <View style={{ ...defaultStyle, backgroundColor: colors.color2 }}>

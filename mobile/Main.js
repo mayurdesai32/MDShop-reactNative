@@ -31,6 +31,7 @@ import AdminOrders from './screens/admin/AdminOrders';
 import UpdateProduct from './screens/admin/UpdateProduct';
 import NewProduct from './screens/admin/NewProduct';
 import ProductImages from './screens/admin/ProductImages';
+import CameraComponent from './screens/CameraComponent';
 const Main = () => {
   return (
     <NavigationContainer>
@@ -59,6 +60,7 @@ const Main = () => {
           <Stack.Screen name='updateproduct' component={UpdateProduct} />
           <Stack.Screen name='newproduct' component={NewProduct} />
           <Stack.Screen name='productimages' component={ProductImages} />
+          <Stack.Screen name='camera' component={CameraComponent} />
         </Stack.Group>
       </Stack.Navigator>
       <Toast position='top' />
