@@ -10,7 +10,7 @@ cloudinary.v2.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-export const stripe = new Stripe(process.env.STRIPE_API_SECRET);
+exports.stripe = new Stripe(process.env.STRIPE_API_SECRET);
 const port = process.env.PORT || 5000;
 const server = app.listen(port, () => {
   console.log(

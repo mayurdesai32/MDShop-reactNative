@@ -1,4 +1,3 @@
-const { v4: uuidv4 } = require('uuid');
 // const uuid = require('uuid');
 const stripe = require('../server');
 const Order = require('../models/orderSchema');

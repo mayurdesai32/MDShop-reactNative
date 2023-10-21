@@ -4,10 +4,9 @@ const wrapAsync = require('../error_handler/AsyncError');
 const sendEmail = require('../utils/sendEmail');
 const sendToken = require('../utils/jwtToken');
 const getDataUri = require('../utils/dataUri');
+const cookieOptions = require('../utils/cookieOptions');
 
 const cloudinary = require('cloudinary');
-
-const cookieOptions = require('../utils/cookieOptions');
 
 const createuser = wrapAsync(async (req, res, next) => {
   const { name, email, password, address, city, country, pinCode } = req.body;
@@ -204,12 +203,18 @@ const updateByUser = wrapAsync(async (req, res, next) => {
 // to update pic
 const updatePicByUser = wrapAsync(async (req, res, next) => {
   const user = await User.findById(req.rootUser._id);
-
+  // console.log(req);
   // if (req.file) {
   // }
   const file = getDataUri(req.file);
-  await cloudinary.v2.uploader.destroy(user.avatar.public_id);
+  console.log(file);
+  if (user.avatar?.public_id) {
+    await cloudinary.v2.uploader.destroy(user.avatar?.public_id);
+  }
   const myCloud = await cloudinary.v2.uploader.upload(file.content);
+
+  console.log('******************************************************');
+
   user.avatar = {
     public_id: myCloud.public_id,
     url: myCloud.secure_url,
@@ -233,7 +238,7 @@ const logout = wrapAsync(async (req, res) => {
       expires: new Date(Date.now()),
     })
     // .clearCookie('jwttoken')
-    .json({ success: true, token, message: 'logout successfully' });
+    .json({ success: true, message: 'logout successfully' });
 });
 
 module.exports = {
