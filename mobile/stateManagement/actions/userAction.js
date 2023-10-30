@@ -23,9 +23,17 @@ export const login = (email, password) => async (dispatch) => {
     );
 
     dispatch({ type: 'loginSuccess', payload: data.message });
+    Toast.show({
+      type: 'success',
+      text1: data.message,
+    });
   } catch (error) {
     // console.log(error.response.data);
     dispatch({ type: 'loginFail', payload: error.response.data.errmessage });
+    Toast.show({
+      type: 'error',
+      text1: error.response.data.errmessage,
+    });
   }
 };
 
@@ -42,9 +50,16 @@ export const register = (formData) => async (dispatch) => {
     });
 
     dispatch({ type: 'registerSuccess', payload: data.message });
+    Toast.show({
+      type: 'success',
+      text1: data.message,
+    });
   } catch (error) {
-    // console.log(error.response.data);
     dispatch({ type: 'registerFail', payload: error.response.data.errmessage });
+    Toast.show({
+      type: 'error',
+      text1: error.response.data.errmessage,
+    });
   }
 };
 
@@ -59,11 +74,15 @@ export const loadUser = () => async (dispatch) => {
       withCredentials: true,
     });
 
-    dispatch({ type: 'loadUserSuccess', payload: data.user });
+    dispatch({ type: 'loadUserSuccess', payload: data?.user });
   } catch (error) {
     dispatch({
       type: 'loadUserFail',
       payload: error.response.data.errmessage,
+    });
+    Toast.show({
+      type: 'error',
+      text1: error.response?.data?.errmessage,
     });
   }
 };
@@ -79,10 +98,18 @@ export const logout = () => async (dispatch) => {
     });
 
     dispatch({ type: 'logoutSuccess', payload: data.message });
+    Toast.show({
+      type: 'success',
+      text1: data.message,
+    });
   } catch (error) {
     dispatch({
       type: 'loadUserFail',
       payload: error.response.data.errmessage,
+    });
+    Toast.show({
+      type: 'error',
+      text1: error.response.data.errmessage,
     });
   }
 };

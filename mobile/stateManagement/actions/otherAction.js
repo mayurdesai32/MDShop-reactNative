@@ -24,12 +24,20 @@ export const updatePassword =
         type: 'updatePasswordSuccess',
         payload: data.message,
       });
+      Toast.show({
+        type: 'success',
+        text1: data.message,
+      });
     } catch (error) {
       console.log('error');
       console.log(error);
       dispatch({
         type: 'updatePasswordFail',
         payload: error.response.data.errmessage,
+      });
+      Toast.show({
+        type: 'error',
+        text1: error.response.data.errmessage,
       });
     }
   };
@@ -56,12 +64,18 @@ export const updateProfile =
         type: 'updateProfileSuccess',
         payload: data.message,
       });
+      Toast.show({
+        type: 'success',
+        text1: data.message,
+      });
     } catch (error) {
-      console.log('error');
-      console.log(error);
       dispatch({
         type: 'updateProfileFail',
         payload: error.response.data.errmessage,
+      });
+      Toast.show({
+        type: 'error',
+        text1: error.response.data.errmessage,
       });
     }
   };
@@ -79,11 +93,19 @@ export const updatePic = (formData) => async (dispatch) => {
     });
 
     dispatch({ type: 'updatePicSuccess', payload: data.message });
+    Toast.show({
+      type: 'success',
+      text1: 'updated picture successfull ',
+    });
   } catch (error) {
     console.log(error);
     dispatch({
       type: 'updatePicFail',
       payload: error.response?.data?.errmessage,
+    });
+    Toast.show({
+      type: 'error',
+      text1: error.response.data.errmessage,
     });
   }
 };
@@ -136,11 +158,13 @@ export const placeOrder =
         text1: 'order successfull register',
       });
     } catch (error) {
-      console.log('error');
-      console.log(error);
       dispatch({
         type: 'placeOrderFail',
         payload: error.response.data.errmessage,
+      });
+      Toast.show({
+        type: 'error',
+        text1: error.response.data.errmessage,
       });
     }
   };
@@ -173,11 +197,13 @@ export const processOrder = (id) => async (dispatch) => {
       text1: 'order successfull updated',
     });
   } catch (error) {
-    console.log('error');
-    console.log(error);
     dispatch({
       type: 'processOrderFail',
       payload: error.response.data.errmessage,
+    });
+    Toast.show({
+      type: 'error',
+      text1: error.response.data.errmessage,
     });
   }
 };
@@ -210,11 +236,13 @@ export const addCategory = (category) => async (dispatch) => {
       text1: 'category successfull ',
     });
   } catch (error) {
-    console.log('error');
-    console.log(error);
     dispatch({
       type: 'addCategoryFail',
       payload: error.response.data.errmessage,
+    });
+    Toast.show({
+      type: 'error',
+      text1: error.response.data.errmessage,
     });
   }
 };
@@ -247,11 +275,13 @@ export const deleteCategory = (id) => async (dispatch) => {
       text1: 'category successfull ',
     });
   } catch (error) {
-    console.log('error');
-    console.log(error);
     dispatch({
       type: 'deleteCategoryFail',
       payload: error.response.data.errmessage,
+    });
+    Toast.show({
+      type: 'error',
+      text1: error.response.data.errmessage,
     });
   }
 };
@@ -273,7 +303,6 @@ export const productCreate = (formData) => async (dispatch) => {
       text1: 'Product added successfull ',
     });
   } catch (error) {
-    // console.log(error.response.data);
     dispatch({
       type: 'addProductFail',
       payload: error.response.data.errmessage,
@@ -314,13 +343,15 @@ export const updateProduct =
         payload: data.message,
       });
     } catch (error) {
-      console.log('error');
-      console.log(error);
       dispatch({
         type: 'updateProductFail',
         payload: error.response.data.errmessage,
       });
     }
+    Toast.show({
+      type: 'error',
+      text1: error.response.data.errmessage,
+    });
   };
 
 export const updateProductImage = (id, formData) => async (dispatch) => {
@@ -405,7 +436,6 @@ export const deleteProduct = (productId) => async (dispatch) => {
       text1: 'Product deleted successfull ',
     });
   } catch (error) {
-    // console.log(error.response.data);
     dispatch({
       type: 'deleteProductFail',
       payload: error.response.data.errmessage,
@@ -447,8 +477,6 @@ export const forgotPassword = (email) => async (dispatch) => {
       text1: data.message,
     });
   } catch (error) {
-    console.log('error');
-    console.log(error);
     dispatch({
       type: 'forgotPasswordFail',
       payload: error.response.data.errmessage,
@@ -488,8 +516,6 @@ export const resetPassword = (otp, password) => async (dispatch) => {
       text1: data.message,
     });
   } catch (error) {
-    console.log('error');
-    console.log(error);
     dispatch({
       type: 'resetPasswordFail',
       payload: error.response.data.errmessage,

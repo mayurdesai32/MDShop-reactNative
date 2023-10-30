@@ -28,6 +28,10 @@ export const getAllProduct = (keyword, category) => async (dispatch) => {
       type: 'getAllProductFail',
       payload: error.response.data.errmessage,
     });
+    Toast.show({
+      type: 'error',
+      text1: error.response.data.errmessage,
+    });
   }
 };
 
@@ -48,6 +52,10 @@ export const getAdminProduct = () => async (dispatch) => {
       type: 'getAdminProductSuccess',
       payload: error.response.data.errmessage,
     });
+    Toast.show({
+      type: 'error',
+      text1: error.response.data.errmessage,
+    });
   }
 };
 
@@ -67,6 +75,10 @@ export const getProductDetail = (id) => async (dispatch) => {
     dispatch({
       type: 'getProductDetailFail',
       payload: error.response.data.errmessage,
+    });
+    Toast.show({
+      type: 'error',
+      text1: error.response.data.errmessage,
     });
   }
 };
