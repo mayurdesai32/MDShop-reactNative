@@ -3,7 +3,6 @@ import { server } from '../store';
 import Toast from 'react-native-toast-message';
 
 export const getAllProduct = (keyword, category) => async (dispatch) => {
-  console.log(keyword, category);
   try {
     let theUrl = `${server}/product/all?keyword=${keyword}&category=${category}`;
 
@@ -11,7 +10,7 @@ export const getAllProduct = (keyword, category) => async (dispatch) => {
       theUrl = `${server}/product/all?keyword=${keyword}`;
     }
     dispatch({ type: 'getAllProductRequest' });
-    console.log(keyword, category);
+
     const { data } = await axios.get(theUrl, {
       headers: {
         Accept: 'application/json',

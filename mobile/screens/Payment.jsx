@@ -74,15 +74,14 @@ const Payment = ({ navigation, route }) => {
         paymentIntentClientSecret: client_secret,
         merchantDisplayName: 'MD-Shop',
       });
-      console.log(init);
+
       if (init.error) {
-        console.log('my error');
         return Toast.show({ type: 'error', text1: init.error.message });
       }
 
       setLoaderLoading(true);
       const presentSheet = await stripe.presentPaymentSheet();
-      console.log(presentSheet);
+
       if (presentSheet.error) {
         setLoaderLoading(false);
         // console.log(presentSheet);

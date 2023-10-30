@@ -18,7 +18,6 @@ const authenticateUser = wrapAsync(async (req, res, next) => {
     return next(new AppError('Invaliduser', 403));
   }
 
-  console.log('token verified');
   req.rootUser = rootUser;
 
   next();

@@ -27,7 +27,7 @@ const ExpressError = (err, req, res, next) => {
       message = Object.values(err.errors).map((value) => value.message);
       status = 400;
     }
-    console.log(err);
+
     res.status(status).json({ sucess: false, message });
   }
 };

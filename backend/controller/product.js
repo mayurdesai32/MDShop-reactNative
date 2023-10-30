@@ -55,7 +55,7 @@ const readallproduct = wrapAsync(async (req, res) => {
   }
 
   const products = await Product.find(query).populate('category');
-  // console.log(products);
+
   res.status(200).json({
     success: true,
     products,

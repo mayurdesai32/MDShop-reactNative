@@ -4,7 +4,7 @@ import { server } from '../store';
 export const login = (email, password) => async (dispatch) => {
   try {
     dispatch({ type: 'loginRequest' });
-    console.log(`${server}/user/login`);
+
     const { data } = await axios.post(
       `${server}/user/login`,
       {

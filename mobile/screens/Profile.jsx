@@ -25,11 +25,9 @@ const Profile = ({ navigation, route }) => {
   const loading = useUserMessageAndError(navigation, dispatch, 'login');
   const loadingPic = useOtherMessageAndError(null, dispatch, null, loadUser);
   const logoutHandler = () => {
-    console.log('Sign Out');
     dispatch(logout());
   };
   const navigateHandler = (text) => {
-    console.log(text);
     switch (text) {
       case 'Admin':
         navigation.navigate('adminpanel');

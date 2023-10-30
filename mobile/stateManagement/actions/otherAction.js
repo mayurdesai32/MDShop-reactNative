@@ -81,7 +81,7 @@ export const updateProfile =
 export const updatePic = (formData) => async (dispatch) => {
   try {
     dispatch({ type: 'updatePicRequest' });
-    // console.log(formData._parts[0]);
+
     const { data } = await axios.put(`${server}/user/updatepic`, formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
@@ -95,7 +95,6 @@ export const updatePic = (formData) => async (dispatch) => {
       text1: 'updated picture successfull ',
     });
   } catch (error) {
-    console.log(error.response);
     dispatch({
       type: 'updatePicFail',
       payload: error.response?.data?.errmessage,
@@ -354,7 +353,7 @@ export const updateProduct =
 export const updateProductImage = (id, formData) => async (dispatch) => {
   try {
     dispatch({ type: 'updateProductImageRequest' });
-    // console.log(formData._parts[0]);
+
     const { data } = await axios.post(
       `${server}/product/images/${id}`,
       formData,

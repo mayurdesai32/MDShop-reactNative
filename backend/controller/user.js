@@ -209,21 +209,14 @@ const updateByUser = wrapAsync(async (req, res, next) => {
 
 // to update pic
 const updatePicByUser = wrapAsync(async (req, res, next) => {
-  console.log(req.rootUser._id);
   const user = await User.findById(req.rootUser._id);
-  console.log(user);
-  // if (req.file) {
-  // }]
-
-  console.log('1 hello world');
 
   const file = getDataUri(req.file);
-  console.log('2 hello world');
-  console.log(file.content);
+
   if (user.avatar?.public_id) {
     await cloudinary.v2.uploader.destroy(user.avatar?.public_id);
   }
-  console.log('3 hello world');
+
   const myCloud = await cloudinary.v2.uploader.upload(file.content);
   console.log(myCloud);
   console.log('******************************************************');
@@ -239,8 +232,6 @@ const updatePicByUser = wrapAsync(async (req, res, next) => {
 
 ///for logout
 const logout = wrapAsync(async (req, res) => {
-  console.log(req.rootUser);
-
   req.rootUser.tokens = [];
   await req.rootUser.save();
 
