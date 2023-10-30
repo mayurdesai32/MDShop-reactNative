@@ -4,22 +4,119 @@ import { colors, defaultStyle } from '../styles/style';
 import Heading from '../components/Heading';
 import Header from '../components/Header';
 import { Button, RadioButton, Text } from 'react-native-paper';
-import { NavigationContainer } from '@react-navigation/native';
-const Payment = ({ navigation, route }) => {
-  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('COD');
 
-  // const navigate = navigation();
+import { useDispatch, useSelector } from 'react-redux';
+import { placeOrder } from '../stateManagement/actions/otherAction';
+import { useOtherMessageAndError } from '../utils/customhook';
+import { presentPaymentSheet, useStripe } from '@stripe/stripe-react-native';
+import Toast from 'react-native-toast-message';
+import { server } from '../stateManagement/store';
+import axios from 'axios';
+import Loader from '../components/Loader';
+const Payment = ({ navigation, route }) => {
+  const dispatch = useDispatch();
+  const stripe = useStripe();
+  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('COD');
+  const [loaderLoading, setLoaderLoading] = useState(false);
+
+  const { isAuthenticated, user } = useSelector((state) => state.user);
+  const { cartItems } = useSelector((state) => state.Cart);
+
   const handlePaymentMethodChange = (newPaymentMethod) => {
     setSelectedPaymentMethod(newPaymentMethod);
   };
 
-  const isAuthenticated = true;
+  // const isAuthenticated = true;
   const redirectToLogin = () => {
     navigation.navigate('login');
   };
-  const CODHandler = () => {};
-  const onlineHandler = () => {};
-  return (
+  const CODHandler = (paymentInfo) => {
+    const shippingInfo = {
+      address: user.address,
+      city: user.city,
+      country: user.country,
+      pinCode: user.pinCode,
+    };
+    shippingCharges = route.params.ShippingCharges;
+    itemsPrice = route.params.itemsPrice;
+    taxPrice = route.params.tax;
+    totalAmount = route.params.totalAmount;
+    dispatch(
+      placeOrder(
+        shippingInfo,
+        cartItems,
+        selectedPaymentMethod,
+        paymentInfo,
+        itemsPrice,
+        taxPrice,
+        shippingCharges,
+        totalAmount
+      )
+    );
+  };
+
+  const onlineHandler = async () => {
+    try {
+      const {
+        data: { client_secret },
+      } = await axios.post(
+        `${server}/order/payment`,
+        { totalAmount: route.params.totalAmount },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          withCredentials: true,
+        }
+      );
+
+      const init = await stripe.initPaymentSheet({
+        paymentIntentClientSecret: client_secret,
+        merchantDisplayName: 'MD-Shop',
+      });
+      console.log(init);
+      if (init.error) {
+        console.log('my error');
+        return Toast.show({ type: 'error', text1: init.error.message });
+      }
+
+      setLoaderLoading(true);
+      const presentSheet = await stripe.presentPaymentSheet();
+      console.log(presentSheet);
+      if (presentSheet.error) {
+        setLoaderLoading(false);
+        // console.log(presentSheet);
+        return Toast.show({
+          type: 'error',
+          text1: presentSheet.error.message,
+        });
+      }
+
+      const { paymentIntent } = await stripe.retrievePaymentIntent(
+        client_secret
+      );
+
+      if (paymentIntent.status === 'Succeeded') {
+        CODHandler({ id: paymentIntent.id, status: paymentIntent.status });
+      }
+    } catch (error) {
+      return Toast.show({
+        type: 'error',
+        text1: 'Some Error',
+        text2: error,
+      });
+    }
+  };
+
+  const loading = useOtherMessageAndError(
+    navigation,
+    dispatch,
+    'profile',
+    () => ({ type: 'clearCart' })
+  );
+  return loaderLoading ? (
+    <Loader />
+  ) : (
     <View style={defaultStyle}>
       <Header back={true} />
       <Heading
@@ -53,15 +150,18 @@ const Payment = ({ navigation, route }) => {
       </View>
 
       <TouchableOpacity
+        disabled={loading}
         onPress={
           !isAuthenticated
             ? redirectToLogin
             : selectedPaymentMethod === 'COD'
-            ? CODHandler
+            ? () => CODHandler()
             : onlineHandler
         }
       >
         <Button
+          disabled={loading}
+          loading={loading}
           style={styles.btn}
           textColor={colors.color2}
           icon={

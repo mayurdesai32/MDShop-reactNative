@@ -30,6 +30,7 @@ export const inputStyle = StyleSheet.create({
   marginVertical: 10,
   marginHorizontal: 20,
   backgroundColor: colors.color2,
+  paddingLeft: 10,
 });
 
 // export const formHeading = {

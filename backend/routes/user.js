@@ -19,7 +19,7 @@ router.post('/login', loginin);
 
 router.post('/forgotpassword', forgotPassword);
 router.get('/profile', authenticateUser, getUserProfile);
-router.put('/resetpassword/:resetToken', resetPassword);
+router.put('/resetpassword', resetPassword);
 router.put('/updateprofile', authenticateUser, updateByUser);
 router.put('/updatepic', authenticateUser, singleUpload, updatePicByUser);
 router.put('/updatepassword', authenticateUser, updatePassword);

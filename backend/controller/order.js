@@ -1,9 +1,11 @@
 // const uuid = require('uuid');
-const stripe = require('../server');
+const stripe = require('stripe')(process.env.STRIPE_API_SECRET);
+
 const Order = require('../models/orderSchema');
 const AppError = require('../error_handler/AppError');
 const wrapAsync = require('../error_handler/AsyncError');
 const Product = require('../models/productSchema');
+
 // to place an order
 const newOrder = wrapAsync(async (req, res, next) => {
   const {
@@ -16,12 +18,21 @@ const newOrder = wrapAsync(async (req, res, next) => {
     shippingCharges,
     totalAmount,
   } = req.body;
-
+  console.log(
+    shippingInfo,
+    orderItems,
+    paymentMethod,
+    paymentInfo,
+    itemsPrice,
+    taxPrice,
+    shippingCharges,
+    totalAmount
+  );
   if (
     !shippingInfo ||
     !orderItems ||
     !paymentMethod ||
-    !paymentInfo ||
+    // !paymentInfo ||
     !itemsPrice ||
     !taxPrice ||
     !shippingCharges ||
@@ -39,7 +50,7 @@ const newOrder = wrapAsync(async (req, res, next) => {
     taxPrice,
     shippingCharges,
     totalAmount,
-    userid: req.rootUser._id,
+    user: req.rootUser._id,
   });
   for (let i = 0; i < orderItems.length; i++) {
     const product = await Product.findById(orderItems[i].product);
@@ -63,7 +74,7 @@ const getAdminOrders = wrapAsync(async (req, res, next) => {
 });
 
 const getMyOrders = wrapAsync(async (req, res, next) => {
-  const orders = await Order.find({ user: req.user._id });
+  const orders = await Order.find({ user: req.rootUser._id });
 
   res.status(200).json({
     success: true,
@@ -102,7 +113,7 @@ const proccessOrder = wrapAsync(async (req, res, next) => {
 
 const processPayment = wrapAsync(async (req, res, next) => {
   const { totalAmount } = req.body;
-
+  console.log(req.body);
   const { client_secret } = await stripe.paymentIntents.create({
     amount: Number(totalAmount * 100),
     currency: 'inr',

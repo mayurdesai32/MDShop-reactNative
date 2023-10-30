@@ -9,15 +9,18 @@ import {
 } from '../styles/style';
 import { TextInput, Button } from 'react-native-paper';
 import Footer from '../components/Footer';
+import { useOtherMessageAndError } from '../utils/customhook';
+import { useDispatch } from 'react-redux';
+import { resetPassword } from '../stateManagement/actions/otherAction';
 
 const Verify = ({ navigation }) => {
+  const dispatch = useDispatch();
   const [otp, setOtp] = useState('');
   const [password, setPassword] = useState('');
-  const loading = false;
+  const loading = useOtherMessageAndError(navigation, dispatch, 'login');
+
   const submitHandler = () => {
-    alert('longin');
-    // temperaly
-    navigation.navigate('login');
+    dispatch(resetPassword(otp, password));
   };
   return (
     <>

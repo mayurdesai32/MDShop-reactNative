@@ -9,15 +9,16 @@ import {
 } from '../styles/style';
 import { TextInput, Button } from 'react-native-paper';
 import Footer from '../components/Footer';
+import { useDispatch } from 'react-redux';
+import { forgotPassword } from '../stateManagement/actions/otherAction';
+import { useOtherMessageAndError } from '../utils/customhook';
 
 const ForgotPassword = ({ navigation }) => {
   const [email, setEmail] = useState('');
-
-  const loading = false;
+  const dispatch = useDispatch();
+  const loading = useOtherMessageAndError(navigation, dispatch, 'verify');
   const submitHandler = () => {
-    alert('longin');
-    // temperaly
-    navigation.navigate('verify');
+    dispatch(forgotPassword(email));
   };
   return (
     <>

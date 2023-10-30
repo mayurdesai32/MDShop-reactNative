@@ -21,7 +21,6 @@ const ButtonBox = ({
         alignItems: 'center',
       }}
       onPress={() => {
-        console.log('hello world');
         handler(text);
       }}
       disabled={loading}

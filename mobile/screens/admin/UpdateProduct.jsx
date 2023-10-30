@@ -1,5 +1,5 @@
 import { View, Text, ScrollView } from 'react-native';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   formStyles,
   defaultStyle,
@@ -11,42 +11,55 @@ import Header from '../../components/Header';
 import Loader from '../../components/Loader';
 import { Button, TextInput } from 'react-native-paper';
 import SelectComponent from '../../components/SelectComponent';
-const loading = false;
-const loadingOther = false;
-const images = [
-  {
-    _id: '1fgfdgdfgdfgdf',
-    url: 'https://p.kindpng.com/picc/s/451-4517876_default-profile-hd-png-download.png',
-  },
-  {
-    _id: '2122fgfdgdfgdfgdf',
-    url: 'https://p.kindpng.com/picc/s/451-4517876_default-profile-hd-png-download.png',
-  },
-  {
-    _id: '3122fgfdgdfgdfgdf',
-    url: 'https://p.kindpng.com/picc/s/451-4517876_default-profile-hd-png-download.png',
-  },
-];
+import { useIsFocused } from '@react-navigation/native';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  useOtherMessageAndError,
+  useSetCategory,
+} from '../../utils/customhook';
+import { getProductDetail } from '../../stateManagement/actions/productAction';
+import { updateProduct } from '../../stateManagement/actions/otherAction';
+
 const UpdateProduct = ({ navigation, route }) => {
+  const isFocused = useIsFocused();
+  const dispatch = useDispatch();
+
+  const { product, loading } = useSelector((state) => state.product);
+
+  const [visible, setVisible] = useState(false);
   const [id] = useState(route.params.id);
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [price, setPrice] = useState('');
   const [stock, setStock] = useState('');
-  const [category, setCategory] = useState('Laptop');
+  const [category, setCategory] = useState('');
   const [categoryID, setCategoryID] = useState('');
-  const [categories, setCategories] = useState([
-    { _id: '1fgdfgdf', category: '1laptop' },
-    { _id: '2fghgdfgdf', category: '2laptop' },
-    { _id: '3fghhdfgdf', category: '3laptop' },
-    { _id: '41fgdhhfgdf', category: '4laptop' },
-  ]);
-  const [visible, setVisible] = useState(false);
-
+  const [categories, setCategories] = useState([]);
+  useSetCategory(setCategories, isFocused);
   const submitHandler = () => {
     console.log(name, price, stock, description, categoryID);
+    dispatch(updateProduct(id, name, description, categoryID, stock, price));
   };
+  const loadingOther = useOtherMessageAndError(
+    navigation,
+    dispatch,
+    'adminpanel'
+  );
 
+  useEffect(() => {
+    dispatch(getProductDetail(id));
+  }, [dispatch, id, isFocused]);
+
+  useEffect(() => {
+    if (product) {
+      setName(product?.name),
+        setDescription(product?.description),
+        setPrice(product?.price?.toString()),
+        setStock(product?.stock?.toString()),
+        setCategory(product?.category?.category),
+        setCategoryID(product?.category?._id);
+    }
+  }, [product]);
   return (
     <>
       <View style={{ ...defaultStyle, backgroundColor: colors.color2 }}>
@@ -69,7 +82,10 @@ const UpdateProduct = ({ navigation, route }) => {
             <View style={{ justifyContent: 'center' }}>
               <Button
                 onPress={() =>
-                  navigation.navigate('productimages', { id, images })
+                  navigation.navigate('productimages', {
+                    id,
+                    images: product?.images,
+                  })
                 }
                 textColor={colors.color1}
               >

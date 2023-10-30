@@ -19,6 +19,7 @@ const { authenticateUser, authorizeRoles } = require('../middleware/auth');
 const router = express.Router();
 
 router.get('/all', readallproduct);
+router.get('/admin', authenticateUser, getAdminProducts);
 router.post(
   '/create',
   authenticateUser,
@@ -36,14 +37,14 @@ router
   .post(authenticateUser, authorizeRoles, singleUpload, addProductImage)
   .delete(authenticateUser, authorizeRoles, deleteProductImage);
 
-router.get('/admin', authenticateUser, authorizeRoles, getAdminProducts);
+// router.get('/admin', authenticateUser, authorizeRoles, getAdminProducts);
 
 router.post('/category', authenticateUser, authorizeRoles, addCategory);
 
 router.get('/categories', getAllCategories);
 
 router.delete(
-  '/category/:id',
+  '/categories/:_id',
   authenticateUser,
   authorizeRoles,
   deleteCategory

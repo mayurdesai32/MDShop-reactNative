@@ -156,6 +156,7 @@ const resetPassword = wrapAsync(async (req, res, next) => {
 // for update user Password
 const updatePassword = wrapAsync(async (req, res, next) => {
   const { oldPassword, newPassword } = req.body;
+  console.log(oldPassword, newPassword);
   if (!oldPassword || !newPassword)
     return next(new AppError('Please Enter Old Password & New Password', 400));
 
@@ -171,8 +172,6 @@ const updatePassword = wrapAsync(async (req, res, next) => {
   user.password = newPassword;
   await user.save();
 
-  sendToken(user, 201, res);
-
   res.status(201).json({
     success: true,
     message: 'Password Changed Successully',
@@ -183,7 +182,15 @@ const updatePassword = wrapAsync(async (req, res, next) => {
 const updateByUser = wrapAsync(async (req, res, next) => {
   const user = await User.findById(req.rootUser._id);
 
-  const { name, email, address, city, country, pinCode } = req.body;
+  const {
+    name,
+    email,
+    address,
+    city,
+    country,
+    pinCode,
+    // role
+  } = req.body;
 
   if (name) user.name = name;
   if (email) user.email = email;
@@ -191,7 +198,7 @@ const updateByUser = wrapAsync(async (req, res, next) => {
   if (city) user.city = city;
   if (country) user.country = country;
   if (pinCode) user.pinCode = pinCode;
-
+  // if (role) user.role = role;
   await user.save();
 
   res.status(200).json({
@@ -207,7 +214,7 @@ const updatePicByUser = wrapAsync(async (req, res, next) => {
   // if (req.file) {
   // }
   const file = getDataUri(req.file);
-  console.log(file);
+
   if (user.avatar?.public_id) {
     await cloudinary.v2.uploader.destroy(user.avatar?.public_id);
   }

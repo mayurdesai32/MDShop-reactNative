@@ -5,64 +5,15 @@ import Header from '../components/Header';
 import Loader from '../components/Loader';
 import { Headline } from 'react-native-paper';
 import OrderItem from '../components/OrderItem';
+import { useIsFocused } from '@react-navigation/native';
+import { useGetOrders } from '../utils/customhook';
 const loading = false;
 
-export const orders = [
-  {
-    _id: 'fdgfdg',
-    shippingInfo: {
-      address: '73 easter',
-      city: 'Mumbai',
-      country: 'India',
-      pincode: 400055,
-    },
-    createdAt: '12-2-2022T2343',
-    orderStatus: 'Processing',
-    paymentMethod: 'ONLINE',
-    totalAmount: 20000,
-  },
-  {
-    _id: 'fdhfghfggfdg',
-    shippingInfo: {
-      address: '73 easter',
-      city: 'Mumbai',
-      country: 'India',
-      pincode: 400055,
-    },
-    createdAt: '12-2-2022T2343',
-    orderStatus: 'Processing',
-    paymentMethod: 'COD',
-    totalAmount: 4000,
-  },
-  {
-    _id: 'f11dhfghfggfdg',
-    shippingInfo: {
-      address: '73 easter',
-      city: 'Mumbai',
-      country: 'India',
-      pincode: 400055,
-    },
-    createdAt: '12-2-2022T2343',
-    orderStatus: 'Processing',
-    paymentMethod: 'COD',
-    totalAmount: 4000,
-  },
-  {
-    _id: 'fdgfhfghfggfdg',
-    shippingInfo: {
-      address: '73 easter',
-      city: 'Mumbai',
-      country: 'India',
-      pincode: 400055,
-    },
-    createdAt: '12-2-2022T2343',
-    orderStatus: 'Processing',
-    paymentMethod: 'COD',
-    totalAmount: 4000,
-  },
-];
+// export const orders = [
 
 const Orders = () => {
+  const isFocused = useIsFocused();
+  const { loading, orders } = useGetOrders(isFocused);
   return (
     <View style={{ ...defaultStyle, backgroundColor: colors.color5 }}>
       <Header back={true} />

@@ -16,6 +16,10 @@ import {
 } from '../styles/style';
 import { TextInput, Button, Avatar } from 'react-native-paper';
 import Footer from '../components/Footer';
+import mime from 'mime';
+import { useDispatch } from 'react-redux';
+import { register } from '../stateManagement/actions/userAction';
+import { useUserMessageAndError } from '../utils/customhook';
 
 const SignUp = ({ navigation, route }) => {
   const [avatar, setAvatar] = useState('');
@@ -26,12 +30,29 @@ const SignUp = ({ navigation, route }) => {
   const [city, setCity] = useState('');
   const [country, setCountry] = useState('');
   const [pinCode, setPinCode] = useState('');
+  const dispatch = useDispatch();
 
-  const loading = false;
+  const loading = useUserMessageAndError(navigation, dispatch, 'profile');
+
   const submitHandler = () => {
-    alert('longin');
-  };
+    const myForm = new FormData();
+    myForm.append('name', name);
+    myForm.append('email', email);
+    myForm.append('password', password);
+    myForm.append('address', address);
+    myForm.append('city', city);
+    myForm.append('pinCode', pinCode);
+    myForm.append('country', country);
 
+    if (avatar !== '') {
+      myForm.append('file', {
+        uri: avatar,
+        type: mime.getType(avatar),
+        name: avatar.split('/').pop(),
+      });
+    }
+    dispatch(register(myForm));
+  };
   const disableBtn =
     !name || !email || !password || !address || !city || !country || !pinCode;
 

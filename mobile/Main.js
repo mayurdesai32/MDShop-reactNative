@@ -6,7 +6,7 @@ import {
   StatusBar,
   Platform,
 } from 'react-native';
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -32,7 +32,13 @@ import UpdateProduct from './screens/admin/UpdateProduct';
 import NewProduct from './screens/admin/NewProduct';
 import ProductImages from './screens/admin/ProductImages';
 import CameraComponent from './screens/CameraComponent';
+import { useDispatch } from 'react-redux';
+import { loadUser } from './stateManagement/actions/userAction';
 const Main = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(loadUser());
+  }, [dispatch]);
   return (
     <NavigationContainer>
       <Stack.Navigator

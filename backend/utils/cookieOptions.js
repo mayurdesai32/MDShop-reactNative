@@ -1,7 +1,7 @@
 const cookieOptions = {
-  secure: process.env.NODE_ENV === 'Development' ? false : true,
-  httpOnly: process.env.NODE_ENV === 'Development' ? false : true,
-  sameSite: process.env.NODE_ENV === 'Development' ? false : 'none',
+  secure: process.env.NODE_ENV === 'development' ? false : true,
+  httpOnly: process.env.NODE_ENV === 'development' ? false : true,
+  sameSite: process.env.NODE_ENV === 'development' ? false : 'none',
 };
 
 module.exports = cookieOptions;

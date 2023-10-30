@@ -3,12 +3,17 @@ import React from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { colors } from '../styles/style';
 import { Avatar } from 'react-native-paper';
+import { useSelector } from 'react-redux';
 
 const Footer = ({ activeRoute = 'home' }) => {
   const navigate = useNavigation();
-  const loading = false;
+  // const loading = false;
   // loading represent database connect or not
-  const isAuthenticated = false;
+  // const isAuthenticated = false;
+  const { isAuthenticated, error, loading, message } = useSelector(
+    (state) => state.user
+  );
+
   const navigationHandler = (key) => {
     switch (key) {
       case 0:
@@ -41,6 +46,9 @@ const Footer = ({ activeRoute = 'home' }) => {
           backgroundColor: colors.color1,
           borderTopRightRadius: 120,
           borderTopLeftRadius: 120,
+          position: 'absolute',
+          width: '100%',
+          bottom: 0,
         }}
       >
         <View style={{ flexDirection: 'row', justifyContent: 'space-evenly' }}>

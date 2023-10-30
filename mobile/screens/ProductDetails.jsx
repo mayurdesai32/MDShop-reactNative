@@ -6,15 +6,18 @@ import {
   StyleSheet,
   TouchableOpacity,
 } from 'react-native';
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Carousel from 'react-native-snap-carousel';
 import { colors, defaultStyle, formStyles } from '../styles/style';
 import Header from '../components/Header';
 import { Avatar, Button } from 'react-native-paper';
 import Toast from 'react-native-toast-message';
+import { useDispatch, useSelector } from 'react-redux';
+import { useIsFocused } from '@react-navigation/native';
+import { getProductDetail } from '../stateManagement/actions/productAction';
 const SLIDER_WIDTH = Dimensions.get('window').width;
 // const SLIDER_WIDTH = Dimensions.get('screen').width;
-console.log('hello world', SLIDER_WIDTH);
+
 const ITEM_WIDTH = SLIDER_WIDTH;
 
 export const iconOptions = {
@@ -28,33 +31,23 @@ export const iconOptions = {
 };
 
 const ProductDetails = ({ route: { params } }) => {
+  const dispatch = useDispatch();
+  const isFocused = useIsFocused();
   const [quantity, setQuantity] = useState(1);
-  const name = 'Macbook pro';
-  const price = 4444;
-  const stock = 5;
-  const description =
-    'lorem hfghgf hfghgf hgdf fgdsf dfdsf dfsdf sdfsdf sdf pro lorem hfghgf hfghgf hgdf fgdsf dfdsf dfsdf sdfsdf sdf pro lorem hfghgf hfghgf hgdf fgdsf dfdsf dfsdf sdfsdf sdf pro lorem  hfghgf hgdf fgdsf dfdsf dfsdf sdfsdf sdf pro lorem hfghgf hfghgf hgdf fgdsf dfdsf dfsdf sdfsdf sdf pro';
+
+  const {
+    product: { name, price, stock, description, images },
+  } = useSelector((state) => state.product);
 
   const isCarousel = useRef(null);
-  console.log(params.id);
-
-  const images = [
-    {
-      id: 'fdfsdfsd',
-      url: 'https://p.kindpng.com/picc/s/451-4517876_default-profile-hd-png-download.png',
-    },
-    {
-      id: 'fdfsdfsjhjghd',
-      url: 'https://p.kindpng.com/picc/s/451-4517876_default-profile-hd-png-download.png',
-    },
-  ];
 
   const decrementQty = () => {
     if (quantity <= 1) return;
     setQuantity((prev) => prev - 1);
   };
   const incrementQty = () => {
-    if (stock <= quantity) return;
+    if (stock <= quantity)
+      return Toast.show({ type: 'error', text1: 'Maximum value Added' });
 
     setQuantity((prev) => prev + 1);
   };
@@ -65,12 +58,26 @@ const ProductDetails = ({ route: { params } }) => {
         type: 'error',
         text1: 'Out of Stock',
       });
-
+    dispatch({
+      type: 'addToCart',
+      payload: {
+        product: params.id,
+        name,
+        price,
+        image: images[0]?.url,
+        stock,
+        quantity,
+      },
+    });
     Toast.show({
       type: 'success',
       text1: 'Added To Cart',
     });
   };
+
+  useEffect(() => {
+    dispatch(getProductDetail(params.id));
+  }, [dispatch, isFocused, params.id]);
   return (
     <View
       style={{

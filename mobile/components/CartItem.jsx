@@ -3,6 +3,7 @@ import React from 'react';
 import { colors } from '../styles/style';
 import { Avatar } from 'react-native-paper';
 import { iconOptions } from '../screens/ProductDetails';
+import Toast from 'react-native-toast-message';
 
 const CartItem = ({
   id,
@@ -12,14 +13,10 @@ const CartItem = ({
   imgSrc,
   qty,
   navigate,
-  // incrementHandler,
-  // decrementHandler,
+  incrementHandler,
+  decrementHandler,
   index,
 }) => {
-  const incrementHandler = (id, qty, stock) => {
-    console.log('incresing ', id, qty, stock);
-  };
-  const decrementHandler = (id, qty) => {};
   return (
     <View style={{ flexDirection: 'row', height: 100, marginVertical: 20 }}>
       <View
@@ -58,11 +55,15 @@ const CartItem = ({
         </Text>
       </View>
       <View style={style.qtyContainer}>
-        <TouchableOpacity onPress={() => decrementHandler(id, qty)}>
+        <TouchableOpacity
+          onPress={() => decrementHandler(id, name, amount, imgSrc, stock, qty)}
+        >
           <Avatar.Icon icon={'minus'} {...iconOptions} />
         </TouchableOpacity>
         <Text style={style.qty}>{qty}</Text>
-        <TouchableOpacity onPress={() => incrementHandler(id, qty, stock)}>
+        <TouchableOpacity
+          onPress={() => incrementHandler(id, name, amount, imgSrc, stock, qty)}
+        >
           <Avatar.Icon icon={'plus'} {...iconOptions} />
         </TouchableOpacity>
       </View>

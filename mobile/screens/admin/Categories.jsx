@@ -9,27 +9,34 @@ import {
 } from '../../styles/style';
 import CategoriesCard from '../../components/CategoriesCard';
 import { Button } from 'react-native-paper';
-const categories = [
-  {
-    name: 'cothes',
-    _id: 'sdfgsfsd',
-  },
-  {
-    name: 'electronic',
-    _id: 'sfdgddfgsfsd',
-  },
-  {
-    name: 'electronic',
-    _id: 'sfdggfhfgddfgsfsd',
-  },
-];
-const loading = false;
-const Categories = () => {
+import {
+  useOtherMessageAndError,
+  useSetCategory,
+} from '../../utils/customhook';
+import { useIsFocused } from '@react-navigation/native';
+import { useDispatch } from 'react-redux';
+import {
+  addCategory,
+  deleteCategory,
+} from '../../stateManagement/actions/otherAction';
+
+const Categories = ({ navigation }) => {
   const [category, setCategory] = useState('');
+  const [categories, setcategories] = useState([]);
+  const isFocused = useIsFocused();
+  const dispatch = useDispatch();
+
+  useSetCategory(setcategories, isFocused);
+
+  const loading = useOtherMessageAndError(navigation, dispatch, 'adminpanel');
+
   const deleteHandler = (id) => {
     console.log(`delete Categories with id ${id}`);
+    dispatch(deleteCategory(id));
   };
-  const submitHandler = () => {};
+  const submitHandler = () => {
+    dispatch(addCategory(category));
+  };
   return (
     <View style={{ ...defaultStyle, backgroundColor: colors.color5 }}>
       <Header back={true} />
@@ -49,7 +56,7 @@ const Categories = () => {
         >
           {categories.map((item, index) => (
             <CategoriesCard
-              name={item.name}
+              name={item.category}
               id={item._id}
               key={item._id}
               index={index}

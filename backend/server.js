@@ -1,7 +1,8 @@
 require('dotenv').config({ path: './data/config.env' });
 const app = require('./app');
 const cloudinary = require('cloudinary');
-const Stripe = require('stripe');
+// const Stripe = require('stripe');
+// module.exports.stripe = require('stripe')(process.env.STRIPE_API_SECRET);
 const db = require('./db/db');
 db();
 cloudinary.v2.config({
@@ -10,7 +11,7 @@ cloudinary.v2.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-exports.stripe = new Stripe(process.env.STRIPE_API_SECRET);
+// exports.stripe = new Stripe(process.env.STRIPE_API_SECRET);
 const port = process.env.PORT || 5000;
 const server = app.listen(port, () => {
   console.log(

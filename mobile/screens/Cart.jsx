@@ -6,59 +6,51 @@ import Heading from '../components/Heading';
 import { Button } from 'react-native-paper';
 import CartItem from '../components/CartItem';
 import { useNavigation } from '@react-navigation/native';
-
-export const cartItems = [
-  {
-    name: 'Macbook',
-    image:
-      'https://p.kindpng.com/picc/s/451-4517876_default-profile-hd-png-download.png',
-    product: 'adfsfsdfsdf',
-    stock: 30,
-    price: 49999,
-    quantity: 4,
-  },
-  {
-    name: 'Macbook',
-    image:
-      'https://p.kindpng.com/picc/s/451-4517876_default-profile-hd-png-download.png',
-    product: 'adfsjghjghghfsdfsdf',
-    stock: 30,
-    price: 49999,
-    quantity: 4,
-  },
-  {
-    name: 'Macbook',
-    image:
-      'https://p.kindpng.com/picc/s/451-4517876_default-profile-hd-png-download.png',
-    product: 'adfsjghjhhhghghfsdfsdf',
-    stock: 30,
-    price: 49999,
-    quantity: 4,
-  },
-  {
-    name: 'Macbook',
-    image:
-      'https://p.kindpng.com/picc/s/451-4517876_default-profile-hd-png-download.png',
-    product: 'adfsfsghfgdfsdf',
-    stock: 3,
-    price: 49999,
-    quantity: 4,
-  },
-  {
-    name: 'Shoes',
-    image:
-      'https://p.kindpng.com/picc/s/451-4517876_default-profile-hd-png-download.png',
-    product: 'a222dfsfsghfgdfsdf',
-    stock: 323,
-    price: 499,
-    quantity: 2,
-  },
-];
+import { useDispatch, useSelector } from 'react-redux';
 
 const Cart = () => {
   const navigate = useNavigation();
-  const incrementHandler = () => {};
-  const decrementHandler = () => {};
+  const dispatch = useDispatch();
+
+  const incrementHandler = (id, name, price, image, stock, qty) => {
+    const newQty = qty + 1;
+    if (stock <= qty)
+      return Toast.show({
+        type: 'error',
+        text1: 'Maximum value added',
+      });
+    dispatch({
+      type: 'addToCart',
+      payload: {
+        product: id,
+        name,
+        price,
+        image,
+        stock,
+        quantity: newQty,
+      },
+    });
+  };
+  const decrementHandler = (id, name, price, image, stock, qty) => {
+    const newQty = qty - 1;
+
+    if (1 >= qty) return dispatch({ type: 'removeFromCart', payload: id });
+
+    dispatch({
+      type: 'addToCart',
+      payload: {
+        product: id,
+        name,
+        price,
+        image,
+        stock,
+        quantity: newQty,
+      },
+    });
+  };
+
+  const { cartItems } = useSelector((state) => state.Cart);
+
   return (
     <View style={{ ...defaultStyle, padding: 0 }}>
       <Header back={true} emptyCart={true} />
@@ -69,21 +61,27 @@ const Cart = () => {
       />
       <View style={{ paddingVertical: 20, flex: 1 }}>
         <ScrollView showsVerticalScrollIndicator={false}>
-          {cartItems.map((item, index) => (
-            <CartItem
-              key={item.product}
-              id={item.product}
-              name={item.name}
-              stock={item.stock}
-              amount={item.price}
-              imgSrc={item.image}
-              qty={item.quantity}
-              incrementHandler={incrementHandler}
-              decrementHandler={decrementHandler}
-              index={index}
-              navigate={navigate}
-            />
-          ))}
+          {cartItems.length !== 0 ? (
+            cartItems.map((item, index) => (
+              <CartItem
+                key={item.product}
+                id={item.product}
+                name={item.name}
+                stock={item.stock}
+                amount={item.price}
+                imgSrc={item.image}
+                qty={item.quantity}
+                incrementHandler={incrementHandler}
+                decrementHandler={decrementHandler}
+                index={index}
+                navigate={navigate}
+              />
+            ))
+          ) : (
+            <Text style={{ textAlign: 'center', fontSize: 25, marginTop: 50 }}>
+              No Item Found
+            </Text>
+          )}
         </ScrollView>
       </View>
       <View
@@ -93,8 +91,14 @@ const Cart = () => {
           paddingHorizontal: 35,
         }}
       >
-        <Text>5 Items</Text>
-        <Text>RS 5</Text>
+        <Text>{cartItems.length} Items</Text>
+        <Text>
+          RS
+          {cartItems.reduce(
+            (prev, curr) => prev + curr.quantity * curr.price,
+            0
+          )}
+        </Text>
       </View>
       <TouchableOpacity
         onPress={

@@ -25,7 +25,7 @@ const authenticateUser = wrapAsync(async (req, res, next) => {
 });
 
 const authorizeRoles = (req, res, next) => {
-  if (req.user.role !== 'admin') {
+  if (req.rootUser.role !== 'admin') {
     return next(
       new AppError(`only admin is  allowed to acccess this resource`, 401)
     );

@@ -3,7 +3,7 @@ const Category = require('../models/categorySchema');
 const AppError = require('../error_handler/AppError');
 const wrapAsync = require('../error_handler/AsyncError');
 const getDataUri = require('../utils/dataUri');
-
+const { ObjectId } = require('mongoose');
 const cloudinary = require('cloudinary');
 // to Create product
 
@@ -13,10 +13,13 @@ const createproduct = wrapAsync(async (req, res, next) => {
   if (!name || !description || !category || !price || !stock) {
     return next(new AppError('some of the input fields is missing', 404));
   }
-
+  let image;
+  if (!req.file) {
+    return next(new AppError('product image not found', 404));
+  }
   const file = getDataUri(req.file);
   const myCloud = await cloudinary.v2.uploader.upload(file.content);
-  const image = {
+  image = {
     public_id: myCloud.public_id,
     url: myCloud.secure_url,
   };
@@ -40,14 +43,19 @@ const createproduct = wrapAsync(async (req, res, next) => {
 const readallproduct = wrapAsync(async (req, res) => {
   const { keyword, category } = req.query;
 
-  const products = await Product.find({
+  const query = {
     name: {
       $regex: keyword ? keyword : '',
       $options: 'i',
     },
-    category: category ? category : undefined,
-  });
+  };
 
+  if (category !== undefined) {
+    query.category = category;
+  }
+
+  const products = await Product.find(query).populate('category');
+  // console.log(products);
   res.status(200).json({
     success: true,
     products,
@@ -111,10 +119,10 @@ const addProductImage = wrapAsync(async (req, res, next) => {
 });
 
 const deleteProductImage = wrapAsync(async (req, res, next) => {
-  const id = req.query._id;
+  const id = req.query.imageId;
 
   if (!id) return next(new AppError('Please Image Id', 400));
-  const product = await Product.findById(req.params._id);
+  const product = await Product.findById(req.params.id);
 
   if (!product) return next(new AppError('Product not found', 404));
 
@@ -140,7 +148,7 @@ const deleteProductImage = wrapAsync(async (req, res, next) => {
 
 // to delete product
 const removeproduct = wrapAsync(async (req, res, next) => {
-  let product = await Product.findById(req.params._id);
+  let product = await Product.findById(req.params._id).populate('category');
   if (!product) {
     return next(new AppError('product not found', 404));
   }
@@ -149,7 +157,7 @@ const removeproduct = wrapAsync(async (req, res, next) => {
     await cloudinary.v2.uploader.destroy(product.images[index].public_id);
   }
 
-  await product.remove();
+  await product.deleteOne();
   res.status(200).json({
     success: true,
     message: 'Product Deleted Successfully',
@@ -191,7 +199,7 @@ const getAllCategories = wrapAsync(async (req, res, next) => {
 });
 
 const deleteCategory = wrapAsync(async (req, res, next) => {
-  const category = await Category.findById(req.params.id);
+  const category = await Category.findById(req.params._id);
   if (!category) return next(new AppError('Category Not Found', 404));
   const products = await Product.find({ category: category._id });
 
@@ -201,7 +209,7 @@ const deleteCategory = wrapAsync(async (req, res, next) => {
     await product.save();
   }
 
-  await category.remove();
+  await category.deleteOne();
 
   res.status(200).json({
     success: true,

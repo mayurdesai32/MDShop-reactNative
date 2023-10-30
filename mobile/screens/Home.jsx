@@ -1,109 +1,65 @@
 import { View, Text, TouchableOpacity, ScrollView } from 'react-native';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { defaultStyle, colors } from '../styles/style';
 import { Avatar, Button } from 'react-native-paper';
 import Header from '../components/Header';
 import { useState } from 'react';
 import SearchModel from '../components/SearchModel';
 import ProductCard from '../components/ProductCard';
-import { useNavigation } from '@react-navigation/native';
+import { useIsFocused } from '@react-navigation/native';
 import Footer from '../components/Footer';
 import Heading from '../components/Heading';
+import { useDispatch, useSelector } from 'react-redux';
+import { getAllProduct } from '../stateManagement/actions/productAction';
+import { useSetCategory } from '../utils/customhook';
+import Toast from 'react-native-toast-message';
 
-const categories = [
-  { category: 'nice1', _id: '1fdfdss' },
-  { category: 'nice2', _id: '2fdfhgdss' },
-  { category: 'nice3', _id: '3fdfhgdss' },
-  { category: 'nice4', _id: '4fdfhdss' },
-  { category: 'nice5', _id: '5fdfhgfdss' },
-];
-
-export const products = [
-  {
-    category: 'cothes',
-    _id: '1ftrerggdfgdf',
-    stock: 44,
-    images: [
-      {
-        url: 'https://p.kindpng.com/picc/s/451-4517876_default-profile-hd-png-download.png',
-      },
-    ],
-    name: 'fbvcbcb',
-    price: 545,
-  },
-  {
-    category: 'cothes',
-    _id: '121fggdfgdf',
-    stock: 44,
-    images: [
-      {
-        url: 'https://p.kindpng.com/picc/s/451-4517876_default-profile-hd-png-download.png',
-      },
-    ],
-    name: 'fbvcbcb',
-    price: 545,
-  },
-  {
-    category: 'cothes',
-    _id: '111fgghghfgdfgdf',
-    stock: 44,
-    images: [
-      {
-        url: 'https://p.kindpng.com/picc/s/451-4517876_default-profile-hd-png-download.png',
-      },
-    ],
-    name: 'fbvcbcb',
-    price: 545,
-  },
-  {
-    category: 'cothes',
-    _id: '1fggdfgdf',
-    stock: 44,
-    images: [
-      {
-        url: 'https://p.kindpng.com/picc/s/451-4517876_default-profile-hd-png-download.png',
-      },
-    ],
-    name: 'fbvcbcb',
-    price: 545,
-  },
-  {
-    category: 'cothes',
-    _id: '2fggdfgdf',
-    stock: 44,
-    images: [
-      {
-        url: 'https://p.kindpng.com/picc/s/451-4517876_default-profile-hd-png-download.png',
-      },
-    ],
-    name: 'fbvcbcb',
-    price: 545,
-  },
-  {
-    category: 'cothes',
-    _id: '3fggdfggfdgfgdf',
-    stock: 44,
-    images: [
-      {
-        url: 'https://p.kindpng.com/picc/s/451-4517876_default-profile-hd-png-download.png',
-      },
-    ],
-    name: 'fbvcbcb',
-    price: 545,
-  },
-];
-const Home = () => {
-  const navigate = useNavigation();
+const Home = ({ navigation }) => {
+  const dispatch = useDispatch();
+  const isFocused = useIsFocused();
   const [category, setCategory] = useState('');
+  const [categories, setCategories] = useState([]);
   const [activeSearch, setActiveSearch] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const categoryButtonHandler = (_id) => {
     setCategory(_id);
   };
-  const addToCardHandler = () => {
-    console.log('hello world');
+  const { products } = useSelector((state) => state.product);
+
+  const addToCardHandler = (id, name, price, image, stock) => {
+    if (stock === 0)
+      return Toast.show({
+        type: 'error',
+        text1: 'out Of Stock',
+      });
+    dispatch({
+      type: 'addToCart',
+      payload: {
+        product: id,
+        name,
+        price,
+        image,
+        stock,
+        quantity: 1,
+      },
+    });
+    Toast.show({
+      type: 'success',
+      text1: 'Added To Cart',
+    });
   };
-  // console.log(category);
+
+  useSetCategory(setCategories, isFocused);
+  useEffect(() => {
+    const timeOutId = setTimeout(() => {
+      dispatch(getAllProduct(searchQuery, category));
+    }, 500);
+
+    return () => {
+      clearTimeout(timeOutId);
+    };
+  }, [dispatch, searchQuery, category, isFocused]);
+
   return (
     <>
       {activeSearch && (
@@ -178,7 +134,7 @@ const Home = () => {
                 id={item._id}
                 key={item._id}
                 i={index}
-                navigate={navigate}
+                Navigation={navigation}
               />
             ))}
           </ScrollView>

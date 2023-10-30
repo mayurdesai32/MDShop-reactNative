@@ -11,17 +11,19 @@ const ProductCard = ({
   price,
   addToCardHandler,
   i,
-  navigate,
+  Navigation,
 }) => {
   return (
     <TouchableOpacity
       activeOpacity={1}
-      onPress={() => navigate.navigate('productdetails', { id })}
+      onPress={() => {
+        Navigation.navigate('productdetails', { id });
+      }}
     >
       <View
         style={{
-          elevation: 5,
-          width: 220,
+          elevation: 15,
+          width: 250,
           alignItems: 'center',
           justifyContent: 'space-between',
           margin: 20,
@@ -54,6 +56,7 @@ const ProductCard = ({
               color: i % 2 === 0 ? colors.color2 : colors.color3,
               fontSize: 25,
               fontWeight: '300',
+              width: '60%',
             }}
           >
             {name}
@@ -73,6 +76,7 @@ const ProductCard = ({
         <TouchableOpacity
           style={{
             backgroundColor: i % 2 == 0 ? colors.color2 : colors.color3,
+            paddingVertical: 5,
             borderRadius: 0,
             borderBottomRightRadius: 20,
             borderBottomLeftRadius: 20,
@@ -80,7 +84,7 @@ const ProductCard = ({
           }}
         >
           <Button
-            onPress={() => addToCardHandler(id, stock)}
+            onPress={() => addToCardHandler(id, name, price, image, stock)}
             textColor={i % 2 === 0 ? colors.color1 : colors.color2}
           >
             Add to Cart

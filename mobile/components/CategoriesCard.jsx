@@ -6,7 +6,7 @@ import { Avatar } from 'react-native-paper';
 const CategoriesCard = ({ name, id, index, deleteHandler }) => {
   return (
     <View style={Styles.cardContainer}>
-      <Text style={Styles.cardText}>CategoriesCard</Text>
+      <Text style={Styles.cardText}>{name}</Text>
       <TouchableOpacity activeOpacity={0.2} onPress={() => deleteHandler(id)}>
         <Avatar.Icon
           icon={'delete'}

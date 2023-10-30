@@ -4,17 +4,41 @@ import { colors, defaultStyle, formStyles } from '../../styles/style';
 import Header from '../../components/Header';
 import ImageCard from '../../components/ImageCard';
 import { Avatar, Button } from 'react-native-paper';
-
+import {
+  useOtherMessageAndError,
+  // useSetCategory,
+} from '../../utils/customhook';
+import { useDispatch } from 'react-redux';
+import {
+  deleteProductImage,
+  updateProductImage,
+} from '../../stateManagement/actions/otherAction';
+import mime from 'mime';
 const ProductImages = ({ navigation, route }) => {
+  // const isFocused = useIsFocused();
+  const dispatch = useDispatch();
   const [images] = useState(route.params.images);
   const [productId] = useState(route.params.id);
   const [image, setImage] = useState(null);
   const [imageChanged, SetImageChanged] = useState(false);
 
-  const deleteHandler = () => {};
+  const loading = useOtherMessageAndError(navigation, dispatch, 'adminpanel');
+
+  const deleteHandler = (imageId) => {
+    dispatch(deleteProductImage(productId, imageId));
+  };
   const submitHandler = (id) => {
     console.log('Image id', id);
     console.log('productId', productId);
+
+    const myForm = new FormData();
+    myForm.append('file', {
+      uri: image,
+      type: mime.getType(image),
+      name: image.split('/').pop(),
+    });
+
+    dispatch(updateProductImage(productId, myForm));
   };
 
   useEffect(() => {
@@ -43,7 +67,7 @@ const ProductImages = ({ navigation, route }) => {
               key={item._id}
               src={item.url}
               id={item._id}
-              deleteHandler={deleteHandler}
+              deleteHandler={() => deleteHandler(item._id)}
             />
           ))}
         </View>

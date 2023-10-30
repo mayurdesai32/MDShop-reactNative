@@ -25,7 +25,7 @@ router.get('/getsinglerorder/:_id', authenticateUser, getSingleOrder);
 
 router.get('/loginUserorder', authenticateUser, getMyOrders);
 
-router.get('/payment', authenticateUser, processPayment);
+router.post('/payment', authenticateUser, processPayment);
 
 router.get('/admin', authenticateUser, authorizeRoles, getAdminOrders);
 

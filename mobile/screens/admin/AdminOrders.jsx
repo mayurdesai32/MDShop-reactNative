@@ -5,12 +5,27 @@ import Header from '../../components/Header';
 import { Headline } from 'react-native-paper';
 
 import Loader from '../../components/Loader';
-import { orders } from '../Orders';
+
 import OrderItem from '../../components/OrderItem';
-loading = false;
-const AdminOrders = () => {
-  const updateHandler = () => {};
-  const processOrderLoading = true;
+import { useIsFocused } from '@react-navigation/native';
+import { useGetOrders, useOtherMessageAndError } from '../../utils/customhook';
+import { useDispatch } from 'react-redux';
+import { processOrder } from '../../stateManagement/actions/otherAction';
+
+const AdminOrders = ({ navigation }) => {
+  const isFocused = useIsFocused();
+  const dispatch = useDispatch();
+  const { loading, orders } = useGetOrders(isFocused, true);
+  const processOrderLoading = useOtherMessageAndError(
+    navigation,
+    dispatch,
+    'adminpanel'
+  );
+  const updateHandler = (id) => {
+    dispatch(processOrder(id));
+    console.log(id);
+  };
+
   return (
     <View style={{ ...defaultStyle, backgroundColor: colors.color5 }}>
       <Header back={true} />

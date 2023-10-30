@@ -9,30 +9,29 @@ import React, { useState } from 'react';
 import {
   colors,
   defaultStyle,
-  inputStyle,
   formStyles,
   inputOptions,
-  defaultImg,
 } from '../styles/style';
 import { TextInput, Button, Avatar } from 'react-native-paper';
-import Footer from '../components/Footer';
 import Header from '../components/Header';
+import { useDispatch, useSelector } from 'react-redux';
+import { updateProfile } from '../stateManagement/actions/otherAction';
+import { useOtherMessageAndError } from '../utils/customhook';
 
 const UpdateProfile = ({ navigation }) => {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [address, setAddress] = useState('');
-  const [city, setCity] = useState('');
-  const [country, setCountry] = useState('');
-  const [pinCode, setPinCode] = useState('');
-
-  const loading = false;
+  const { user } = useSelector((state) => state.user);
+  const [name, setName] = useState(user?.name);
+  const [email, setEmail] = useState(user?.email);
+  const [address, setAddress] = useState(user?.address);
+  const [city, setCity] = useState(user?.city);
+  const [country, setCountry] = useState(user?.country);
+  const [pinCode, setPinCode] = useState(user?.pinCode.toString());
+  const dispatch = useDispatch();
+  const loading = useOtherMessageAndError(navigation, dispatch, 'profile');
   const submitHandler = () => {
-    alert('profile updated');
+    dispatch(updateProfile(name, email, address, city, country, pinCode));
   };
 
-  const disableBtn =
-    !name || !email || !address || !city || !country || !pinCode;
   return (
     <>
       <View style={{ ...defaultStyle, backgroundColor: colors.color2 }}>
@@ -105,7 +104,6 @@ const UpdateProfile = ({ navigation }) => {
             <Button
               loading={loading} // for throding
               textColor={colors.color2}
-              disabled={disableBtn}
               style={formStyles.btn}
               onPress={submitHandler}
             >
