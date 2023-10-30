@@ -58,11 +58,13 @@ To test the application:
 1. **For Android Users:**
 
    - Download Expo Go on your Android smartphone.
-   - Scan the provided QR code ![Alt text](android.png) within Expo Go.
+   - Scan the provided QR code below within Expo Go.
+   - ![Alt text](android.png)
 
 2. **For iOS Users:**
    - Download Expo Go on your Apple smartphone.
-   - Scan the provided QR code ![Alt text](apple.png) within Expo Go.
+   - Scan the provided QR code !below within Expo Go.
+   - ![Alt text](apple.png)
 
 **Note:** The backend server is hosted on a free tier and might experience a delay (up to 90 seconds) due to server sleep. If products fail to load initially, please restart the app. This delay is not a bug but an issue related to the free tier hosting.
 
