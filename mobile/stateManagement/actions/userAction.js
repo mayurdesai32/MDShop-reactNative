@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { server } from '../store';
-
+import Toast from 'react-native-toast-message';
 export const login = (email, password) => async (dispatch) => {
   try {
     dispatch({ type: 'loginRequest' });
