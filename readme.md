@@ -1,6 +1,6 @@
 ### **MDSHOP: Full Stack Ecommerce Mobile Application Documentation**
 
-MDSHOP is a full-stack e-commerce mobile application developed using React Native for the frontend and Node.js along with Express and MongoDB for the backend. It provides a comprehensive set of features for users and administrators to manage products, orders, accounts, and payments.
+MDSHOP is a full-stack e-commerce mobile application developed using React Native for the frontend and Node.js with Express and MongoDB for the backend. It provides a wide array of features for users and administrators to manage products, orders, accounts, and payments.
 
 #### Features
 
@@ -49,10 +49,10 @@ To test the application:
 
 2. **For iOS Users:**
    - Download Expo Go on your Apple smartphone.
-   - Scan the provided QR code !below within Expo Go.
+   - Scan the provided QR code below within Expo Go.
    - ![Alt text](apple.png)
 
-**Note:** The backend server is hosted on a free tier and might experience a delay (up to 90 seconds) due to server sleep. If products fail to load initially, please restart the app. This delay is not a bug but an issue related to the free tier hosting.
+**Note:** The backend server might experience a delay of up to 90 seconds due to server sleep if hosted on a free tier. If products fail to load initially, consider restarting the app. This delay is not a bug but an issue related to free tier hosting.
 
 #### Backend Setup
 
@@ -77,7 +77,7 @@ Ensure the following environment variables are set for the backend:
 - `CLOUDINARY_API_KEY`
 - `CLOUDINARY_API_SECRET`
 
-**Note:** If the backend is running locally, use the IPv4 address instead of "localhost". You can find the IPv4 Address by typing `ipconfig` in the command prompt.
+**Note:** If the backend is running locally, use the IPv4 address instead of "localhost". You can find the IPv4 Address by typing `ipconfig` in the command prompt. Modify the backend link in `/mobile/stateManagement/store.js` to your backend link followed by `/v2/api`, e.g., `http://localhost:5000/v2/api`.
 
 #### Starting the Frontend
 
@@ -92,5 +92,13 @@ Ensure the following environment variables are set for the backend:
 3. Start the backend server using `npm start`.
 
 **Important:** Ensure that the backend environment variables are properly set before running the backend server.
+
+### Postman API Documentation
+
+Explore the backend API documentation through Postman using the provided link below:
+
+[Postman API Documentation](https://documenter.getpostman.com/view/14542680/2s9YXb95fk)
+
+Set the Postman environment variable `network` to `http://localhost:5000`.
 
 This documentation provides an overview of the MDSHOP application, its features, technology stack, and setup instructions for both frontend and backend. For further development or testing, refer to this guide and ensure the necessary dependencies and configurations are in place.
