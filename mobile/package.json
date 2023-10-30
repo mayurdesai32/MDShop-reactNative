@@ -25,7 +25,8 @@
     "react-native-paper": "^5.10.4",
     "react-native-snap-carousel": "^4.0.0-beta.6",
     "react-native-toast-message": "^2.1.6",
-    "react-redux": "^8.1.2"
+    "react-redux": "^8.1.2",
+    "expo-updates": "~0.18.17"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"

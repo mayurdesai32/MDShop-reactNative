@@ -56,11 +56,13 @@ const Profile = ({ navigation, route }) => {
     if (route.params?.image) {
       setAvatar(route.params.image);
       const myForm = new FormData();
+
       myForm.append('file', {
         uri: route.params?.image,
         type: mime.getType(route.params?.image),
         name: route.params?.image.split('/').pop(),
       });
+
       dispatch(updatePic(myForm));
     }
     dispatch(loadUser());

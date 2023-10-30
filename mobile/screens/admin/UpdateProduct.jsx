@@ -37,7 +37,6 @@ const UpdateProduct = ({ navigation, route }) => {
   const [categories, setCategories] = useState([]);
   useSetCategory(setCategories, isFocused);
   const submitHandler = () => {
-    console.log(name, price, stock, description, categoryID);
     dispatch(updateProduct(id, name, description, categoryID, stock, price));
   };
   const loadingOther = useOtherMessageAndError(

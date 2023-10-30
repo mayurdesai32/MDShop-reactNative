@@ -31,7 +31,6 @@ const Categories = ({ navigation }) => {
   const loading = useOtherMessageAndError(navigation, dispatch, 'adminpanel');
 
   const deleteHandler = (id) => {
-    console.log(`delete Categories with id ${id}`);
     dispatch(deleteCategory(id));
   };
   const submitHandler = () => {

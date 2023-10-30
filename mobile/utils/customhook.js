@@ -68,7 +68,6 @@ export const useSetCategory = (setCategories, isFocused) => {
     axios
       .get(`${server}/product/categories`)
       .then((res) => {
-        console.log(res.data);
         setCategories(res.data.categories);
       })
       .catch((error) => {

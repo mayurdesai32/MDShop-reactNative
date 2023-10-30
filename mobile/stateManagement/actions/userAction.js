@@ -2,7 +2,6 @@ import axios from 'axios';
 import { server } from '../store';
 
 export const login = (email, password) => async (dispatch) => {
-  console.log(email, password);
   try {
     dispatch({ type: 'loginRequest' });
     console.log(`${server}/user/login`);
@@ -28,7 +27,6 @@ export const login = (email, password) => async (dispatch) => {
       text1: data.message,
     });
   } catch (error) {
-    // console.log(error.response.data);
     dispatch({ type: 'loginFail', payload: error.response.data.errmessage });
     Toast.show({
       type: 'error',

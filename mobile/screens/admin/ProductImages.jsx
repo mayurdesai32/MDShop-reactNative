@@ -28,9 +28,6 @@ const ProductImages = ({ navigation, route }) => {
     dispatch(deleteProductImage(productId, imageId));
   };
   const submitHandler = (id) => {
-    console.log('Image id', id);
-    console.log('productId', productId);
-
     const myForm = new FormData();
     myForm.append('file', {
       uri: image,

@@ -1,7 +1,8 @@
 {
   "expo": {
-    "name": "mobile",
-    "slug": "mobile",
+    "name": "MDShop",
+    "slug": "MDShop",
+    "description": "MDSHOP:- Full Stack Ecommerce mobile application ",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -25,6 +26,17 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "a7180ddc-f3a0-4416-800a-ac2e23a36921"
+      }
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/a7180ddc-f3a0-4416-800a-ac2e23a36921"
     }
   }
 }

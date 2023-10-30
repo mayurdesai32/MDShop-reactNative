@@ -29,8 +29,6 @@ export const updatePassword =
         text1: data.message,
       });
     } catch (error) {
-      console.log('error');
-      console.log(error);
       dispatch({
         type: 'updatePasswordFail',
         payload: error.response.data.errmessage,
@@ -81,7 +79,6 @@ export const updateProfile =
   };
 
 export const updatePic = (formData) => async (dispatch) => {
-  console.log(formData);
   try {
     dispatch({ type: 'updatePicRequest' });
     // console.log(formData._parts[0]);
@@ -98,7 +95,7 @@ export const updatePic = (formData) => async (dispatch) => {
       text1: 'updated picture successfull ',
     });
   } catch (error) {
-    console.log(error);
+    console.log(error.response);
     dispatch({
       type: 'updatePicFail',
       payload: error.response?.data?.errmessage,

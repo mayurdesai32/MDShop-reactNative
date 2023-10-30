@@ -113,7 +113,7 @@ const MyIcon = ({ icon, handler }) => (
   <TouchableOpacity onPress={handler}>
     <Avatar.Icon
       icon={icon}
-      size={40}
+      size={55}
       color={colors.color2}
       style={{ backgroundColor: colors.color1 }}
     />

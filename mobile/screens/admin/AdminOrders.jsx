@@ -23,7 +23,6 @@ const AdminOrders = ({ navigation }) => {
   );
   const updateHandler = (id) => {
     dispatch(processOrder(id));
-    console.log(id);
   };
 
   return (

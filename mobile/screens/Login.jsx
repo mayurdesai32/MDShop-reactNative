@@ -22,8 +22,6 @@ const Login = ({ navigation }) => {
     dispatch(login(email, password));
   };
 
-  // console.log(isAuthenticated, error, loading, message);
-
   return (
     <>
       <View style={{ ...defaultStyle, backgroundColor: colors.color2 }}>

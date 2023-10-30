@@ -1,8 +1,9 @@
 import axios from 'axios';
 import { server } from '../store';
+import Toast from 'react-native-toast-message';
 
 export const getAllProduct = (keyword, category) => async (dispatch) => {
-  console.log(category);
+  console.log(keyword, category);
   try {
     let theUrl = `${server}/product/all?keyword=${keyword}&category=${category}`;
 
@@ -10,17 +11,14 @@ export const getAllProduct = (keyword, category) => async (dispatch) => {
       theUrl = `${server}/product/all?keyword=${keyword}`;
     }
     dispatch({ type: 'getAllProductRequest' });
-
-    const { data } = await axios.get(
-      `${server}/product/all?keyword=${keyword}`,
-      {
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        withCredentials: true,
-      }
-    );
+    console.log(keyword, category);
+    const { data } = await axios.get(theUrl, {
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      withCredentials: true,
+    });
 
     dispatch({ type: 'getAllProductSuccess', payload: data.products });
   } catch (error) {

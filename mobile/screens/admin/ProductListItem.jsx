@@ -17,7 +17,7 @@ const ProductListItem = ({
   imgSrc,
 }) => {
   const [openModal, setOpenModal] = useState(false);
-  console.log(openModal);
+
   return (
     <>
       <TouchableOpacity
