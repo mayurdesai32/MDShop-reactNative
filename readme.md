@@ -1,63 +1,87 @@
-# MDSHOP:- Full Stack Ecommerce mobile application using react native ,node ,express, mongodb
+### **MDSHOP: Full Stack Ecommerce Mobile Application Documentation**
 
-## Forntend lib:-
+MDSHOP is a full-stack e-commerce mobile application developed using React Native for the frontend and Node.js along with Express and MongoDB for the backend. It provides a comprehensive set of features for users and administrators to manage products, orders, accounts, and payments.
 
-- reat native
-- redux-toolkit
-- expo-camera
-- expo-image-picker
-- react-native-chart-kit
-- react-native-paper
-- react-native-snap-carousel
+#### Features
 
-## Backend lib:-
+1. **User Management**
 
-- Node
+   - Users can browse, view, and add products to their cart.
+   - Seamless checkout using Cash on Delivery (COD) or Stripe payment gateway integration.
+   - Account creation, login, and profile picture addition.
+   - Forgot password feature with OTP-based password reset.
+
+2. **Admin Panel**
+   - Product management: Add, update, and delete products.
+   - Order status management.
+
+#### Technology Stack
+
+##### Frontend Libraries
+
+- React Native
+- Redux Toolkit
+- Expo Camera
+- Expo Image Picker
+- React Native Chart Kit
+- React Native Paper
+- React Native Snap Carousel
+
+##### Backend Libraries
+
+- Node.js
 - Express
-- stripe
-- multer
-- express
-- cloudinary
-- bcryptjs
-- mongoose
+- Stripe API
+- Multer
+- Cloudinary
+- Bcrypt.js
+- Mongoose
 
-## Note :-if backend is running locally dont use localhoast use IPv4 Address instead .you can get IPv4 Address by typing ipconfig in cmd
+#### Testing Instructions
 
-## for backend its require enviroment variable:-
+To test the application:
 
-PORT=
+1. Download Expo Go on your Android/Apple smartphone.
+2. Scan the provided QR code android user ![Alt text](android.png) within Expo Go.
+3. Scan the provided QR code ios user ![Alt text](apple.png) within Expo Go.
 
-MONGODB_URI=
+#### Backend Setup
 
-STRIPE_API_SECRET=
+##### Environment Variables
 
-JWT_SECRET=
+Ensure the following environment variables are set for the backend:
 
-JWT_EXPIRES_TIME=
+- `PORT`
+- `MONGODB_URI`
+- `STRIPE_API_SECRET`
+- `JWT_SECRET`
+- `JWT_EXPIRES_TIME`
+- `cookie_EXPIRES_TIME`
+- `MYWEBSITE`
+- `SMTP_HOST`
+- `SMTP_PORT`
+- `SMTP_EMAIL`
+- `SMTP_PASSWORD`
+- `SMTP_FROM_EMAIL`
+- `SMTP_FROM_NAME`
+- `CLOUDINARY_NAME`
+- `CLOUDINARY_API_KEY`
+- `CLOUDINARY_API_SECRET`
 
-cookie_EXPIRES_TIME=
+**Note:** If the backend is running locally, use the IPv4 address instead of "localhost". You can find the IPv4 Address by typing `ipconfig` in the command prompt.
 
-MYWEBSITE=
+#### Starting the Frontend
 
-SMTP_HOST =
-SMTP_PORT =
-SMTP_EMAIL =
-SMTP_PASSWORD =
-SMTP_FROM_EMAIL =
-SMTP_FROM_NAME =
+1. Navigate to the `mobile` directory.
+2. Run `npm install` to install dependencies.
+3. Initiate the application with `npm start`.
 
-CLOUDINARY_NAME =
-CLOUDINARY_API_KEY =
-CLOUDINARY_API_SECRET =
+#### Starting the Backend
 
-## How to start the frontend
+1. Navigate to the `backend` directory.
+2. Run `npm install` to install dependencies.
+3. Start the backend server using `npm start`.
 
-- cd mobile
-- npm install
-- npm start
+**Important:** Ensure that the backend environment variables are properly set before running the backend server.
 
-## How to start the Backend
-
-- cd backend
-- npm install
-- npm start
+This documentation provides an overview of the MDSHOP application, its features, technology stack, and setup instructions for both frontend and backend. For further development or testing, refer to this guide and ensure the necessary dependencies and configurations are in place.
