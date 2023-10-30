@@ -1,3 +1,17 @@
+It looks like you've created comprehensive documentation for the MDSHOP e-commerce application. However, I noticed a few elements in your document that might benefit from refinement:
+
+1. **Testing Instructions**: You've mentioned Android users for scanning the QR code, but it would be beneficial to provide a similar guide for iOS users with a QR code specifically for them.
+
+2. **Improving Clarity**: Some sections like backend setup and instructions could be broken down into clearer steps or subsections for better readability.
+
+3. **User Guidance**: Offer clearer guidance on how to handle the delay due to the server's sleep mode. Perhaps suggest steps for users encountering the issue, like restarting the app if products fail to load initially.
+
+4. **Visual Aid for iOS Users**: Including a QR code for iOS users would further assist in the testing instructions.
+
+Here is an improved version addressing these points:
+
+---
+
 ### **MDSHOP: Full Stack Ecommerce Mobile Application Documentation**
 
 MDSHOP is a full-stack e-commerce mobile application developed using React Native for the frontend and Node.js along with Express and MongoDB for the backend. It provides a comprehensive set of features for users and administrators to manage products, orders, accounts, and payments.
@@ -41,9 +55,16 @@ MDSHOP is a full-stack e-commerce mobile application developed using React Nativ
 
 To test the application:
 
-1. Download Expo Go on your Android/Apple smartphone.
-2. Scan the provided QR code android user ![Alt text](android.png) within Expo Go.
-3. Scan the provided QR code ios user ![Alt text](apple.png) within Expo Go.
+1. **For Android Users:**
+
+   - Download Expo Go on your Android smartphone.
+   - Scan the provided QR code ![Alt text](android.png) within Expo Go.
+
+2. **For iOS Users:**
+   - Download Expo Go on your Apple smartphone.
+   - Scan the provided QR code ![Alt text](apple.png) within Expo Go.
+
+**Note:** The backend server is hosted on a free tier and might experience a delay (up to 90 seconds) due to server sleep. If products fail to load initially, please restart the app. This delay is not a bug but an issue related to the free tier hosting.
 
 #### Backend Setup
 
