@@ -52,7 +52,7 @@ To test the application:
    - Scan the provided QR code below within Expo Go.
    - ![Alt text](apple.png)
 
-**Note:** The backend server might experience a delay of up to 90 seconds due to server sleep if hosted on a free tier. If products fail to load initially, consider restarting the app. This delay is not a bug but an issue related to free tier hosting.
+**Note:** The backend server might experience a delay of up to 30 seconds due to server sleep as it is hosted on a free tier. This delay is not a bug but an issue related to free tier hosting.
 
 #### Backend Setup
 
@@ -77,7 +77,10 @@ Ensure the following environment variables are set for the backend:
 - `CLOUDINARY_API_KEY`
 - `CLOUDINARY_API_SECRET`
 
-**Note:** If the backend is running locally, use the IPv4 address instead of "localhost". You can find the IPv4 Address by typing `ipconfig` in the command prompt. Modify the backend link in `/mobile/stateManagement/store.js` to your backend link followed by `/v2/api`, e.g., `http://localhost:5000/v2/api`.
+**Note:**
+
+- If the backend is running locally, use the IPv4 address instead of "localhost". You can find the IPv4 Address by typing `ipconfig` in the command prompt.
+- Modify the server link in `/mobile/stateManagement/store.js` to your server link followed by `/v2/api`, e.g., `http://localhost:5000/v2/api`.
 
 #### Starting the Frontend
 
@@ -99,6 +102,6 @@ Explore the backend API documentation through Postman using the provided link be
 
 [Postman API Documentation](https://documenter.getpostman.com/view/14542680/2s9YXb95fk)
 
-Set the Postman environment variable `network` to `http://localhost:5000`.
+Set the Postman environment variable `network` to eg`http://localhost:5000`.
 
 This documentation provides an overview of the MDSHOP application, its features, technology stack, and setup instructions for both frontend and backend. For further development or testing, refer to this guide and ensure the necessary dependencies and configurations are in place.

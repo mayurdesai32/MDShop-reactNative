@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getAllProduct } from '../stateManagement/actions/productAction';
 import { useSetCategory } from '../utils/customhook';
 import Toast from 'react-native-toast-message';
+import Loader from '../components/Loader';
 
 const Home = ({ navigation }) => {
   const dispatch = useDispatch();
@@ -24,7 +25,7 @@ const Home = ({ navigation }) => {
   const categoryButtonHandler = (_id) => {
     setCategory(_id);
   };
-  const { products } = useSelector((state) => state.product);
+  const { loading, products } = useSelector((state) => state.product);
 
   const addToCardHandler = (id, name, price, image, stock) => {
     if (stock === 0)
@@ -60,7 +61,9 @@ const Home = ({ navigation }) => {
     };
   }, [dispatch, searchQuery, category, isFocused]);
 
-  return (
+  return products && products.length === 0 ? (
+    <Loader />
+  ) : (
     <>
       {activeSearch && (
         <SearchModel
