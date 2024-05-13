@@ -12,6 +12,7 @@ export const store = configureStore({
     Cart: cartReducer,
   },
 });
-// export const server = 'https://mdshop-reactnative.onrender.com/v2/api';
+// as my server is hosted on site
+export const server = 'https://mdshop-reactnative.onrender.com/v2/api';
 
-export const server = 'http://192.168.22.108:5000/v2/api';
+// export const server = 'http://192.168.22.108:5000/v2/api';
