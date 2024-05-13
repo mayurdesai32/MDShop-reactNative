@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "Set NODE_ENV=development&& nodemon server.js",
+    "dev": "Set NODE_ENV=development&& node server.js",
     "start": "Set NODE_ENV=production&& node server.js"
   },
   "author": "Mayur desai",

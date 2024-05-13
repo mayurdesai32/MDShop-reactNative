@@ -28,7 +28,7 @@ const ExpressError = (err, req, res, next) => {
       status = 400;
     }
 
-    res.status(status).json({ sucess: false, message });
+    res.status(status).json({ sucess: false, errmessage: message });
   }
 };
 module.exports = ExpressError;

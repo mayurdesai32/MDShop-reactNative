@@ -24,7 +24,7 @@ const Home = ({ navigation }) => {
   const [searchQuery, setSearchQuery] = useState('');
   const categoryButtonHandler = (_id) => {
     setCategory(_id);
-  };
+  }; 
   const { loading, products } = useSelector((state) => state.product);
 
   const addToCardHandler = (id, name, price, image, stock) => {

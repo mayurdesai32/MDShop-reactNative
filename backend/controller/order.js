@@ -18,16 +18,7 @@ const newOrder = wrapAsync(async (req, res, next) => {
     shippingCharges,
     totalAmount,
   } = req.body;
-  console.log(
-    shippingInfo,
-    orderItems,
-    paymentMethod,
-    paymentInfo,
-    itemsPrice,
-    taxPrice,
-    shippingCharges,
-    totalAmount
-  );
+
   if (
     !shippingInfo ||
     !orderItems ||
@@ -35,7 +26,7 @@ const newOrder = wrapAsync(async (req, res, next) => {
     // !paymentInfo ||
     !itemsPrice ||
     !taxPrice ||
-    !shippingCharges ||
+    // !shippingCharges ||
     !totalAmount
   ) {
     return next(new AppError('some of the input fields is missing', 401));

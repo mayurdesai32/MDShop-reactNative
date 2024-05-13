@@ -10,7 +10,6 @@ export const getAllProduct = (keyword, category) => async (dispatch) => {
       theUrl = `${server}/product/all?keyword=${keyword}`;
     }
     dispatch({ type: 'getAllProductRequest' });
-
     const { data } = await axios.get(theUrl, {
       headers: {
         Accept: 'application/json',

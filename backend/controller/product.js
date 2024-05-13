@@ -23,7 +23,7 @@ const createproduct = wrapAsync(async (req, res, next) => {
     public_id: myCloud.public_id,
     url: myCloud.secure_url,
   };
-
+ 
   await Product.create({
     name,
     description,
